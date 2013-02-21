@@ -177,8 +177,11 @@ class Jboard_Controller extends Base_Controller {
 
 	public function get_report(){
 
+		$lastsubmit = DB::table('stats')->where('id', '=', '1')->first();
+
 		$view = View::make('jboard.report')
-				->with('title', 'Generate Appeal Report');
+				->with('title', 'Generate Appeal Report')
+				->with('lastsubmit', $lastsubmit);
 		return $view;
 
 	}
@@ -187,7 +190,9 @@ class Jboard_Controller extends Base_Controller {
 		//use this section for functionality that allows jboard to send the report of approved parking appeals every week over to security
 		//use a php -> CSV converter and call a mysql query that just looks for the appeals that were approved within X amount of days
 
-		
+		//simple query to update our last submit 
+		DB::query("UPDATE stats SET lastsubmit = NOW() WHERE id=1");
+
 		//what this query does:
 		//  select ticket ID and CWID from the rulings table, then get the person's name from the tickets table. We have to join these tables because we are taking from two tables without a specific where clause. 
 		//  We then only take the tickets that have been approved
@@ -208,6 +213,8 @@ class Jboard_Controller extends Base_Controller {
 			) . "\n";
 		}
 
+
+		//create filename with current date
 		$filename = 'ticketappeals-' . date('Ymd'). '.csv';
 
 		return Response::make($data, 200, array(

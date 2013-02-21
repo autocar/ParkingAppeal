@@ -1,1 +1,10 @@
 local/*
+
+/application.php
+/auth.php
+/cache.php
+/database.php
+/error.php
+/mimes.php
+/session.php
+/strings.php

@@ -8,6 +8,8 @@
 
 	<p>Press the button below to generate a report of all appealed parking tickets for the past week. The report will contain Ticket IDs and CWIDs.</p>
 
+	<p>The last report was generated on: <strong> {{ date('F j, Y', strtotime($lastsubmit->lastsubmit))}} </strong> </p>
+
 	<p>Please send this report to Security weekly.</p>
 
 	{{ Form::submit('Generate Report', array('id' => 'generate'))}}
