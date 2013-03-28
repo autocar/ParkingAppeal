@@ -4,12 +4,21 @@
 
 	<h1>Open Appeals</h1>
 
+    <table>
+        <tr style="border:solid 1px #000;">
+            <th> </th>
+            <th>Ticket Number</th>
+            <th>Date Submitted</th>
+        </tr>
 	@foreach($openappeals as $openappeal)
 
-		<p>{{HTML::link('jboard/review/'.$openappeal->ticketid, 'View Ticket')}} - Ticket # {{ $openappeal->ticketid }}<br></p>
-
+        <tr>
+            <td style="padding:5px;">{{HTML::link('jboard/review/'.$openappeal->ticketid, 'View Ticket')}}</td>
+            <td style="padding:5px;"># {{ $openappeal->ticketid }}</td>
+            <td style="padding:5px;">{{ date("d-M-Y", strtotime($openappeal->created_at)) }}</td>
+        </tr>
 	@endforeach
-
+</table>
 
 @endsection
 @section('navigation')

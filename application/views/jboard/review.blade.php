@@ -11,6 +11,10 @@
 			<td>{{ $appeals->ticketid }}</td>
 		</tr>
 		<tr>
+			<th>Ticket Issued</th> 
+			<td>{{ $appeals->dateissued }}</td>
+		</tr>
+		<tr>
 			<th>Name</th> 
 			<td>{{ $appeals->name }} {{ $appeals->lastname }}</td>
 		</tr>
@@ -21,6 +25,10 @@
 		<tr>
 			<th>Violations</th> 
 			<td>{{ e($appeals->violations) }}</td>
+		</tr>
+		<tr>
+			<th>Fine Amount</th> 
+			<td>{{ e($appeals->fineamt) }}</td>
 		</tr>
 		<tr>
 			<th>Permit Number</th> 
@@ -44,12 +52,12 @@
 		<legend>Decision</legend>
 
 	<p>
-		{{ Form::label('decision', 'Appeal Decision')}}
+		{{ Form::label('decision', 'Appeal Decision')}}<br>
 		{{ Form::select('decision', array('approved' => 'Appeal Approved', 'partial' => 'Partial Approval (specify)', 'denied' => 'Appeal Denied')) }} <i>{{ $errors->first('decision') }}</i>
 	</p>
 		<br>
 	<p>
-		{{ Form::label('denyreason', 'Reason for Denial') }} (Leave blank if not denied)
+		{{ Form::label('denyreason', 'Reason for Denial') }} (Leave blank if not denied) <br>
 		{{ Form::select('denyreason', array('none' => '', 'incomplete'       => 'Incomplete/Illegible', 'past'         => 'Past Due', 'nobasis'      => 'No Basis for Appeal', 'insufficient' => 'Insufficient Evidence','other'        => 'Other (specify)'), 0) }} <i>{{ $errors->first('denyreason') }}</i>
 	</p>
 

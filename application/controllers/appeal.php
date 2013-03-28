@@ -45,13 +45,14 @@ class Appeal_Controller extends Base_Controller {
 			'permit'            => 'required|min:2',
 			'lot'               => 'required|integer',
 			'msc'               => 'integer',
-			'ticket'            => 'required|min:2|unique:tickets,ticketID',
+			'ticket'            => 'required|min:2|numeric|unique:tickets,ticketID',
+			'fineAmt'			=> 'required|numeric',
 			'licensePlate'      => 'required|alpha_num',
 			'licensePlateState' => 'required|max:2',
 			'dateIssued'        => 'required',
 			'violations'        => 'required',
 			'areaOfViolation'   => 'required|alpha_num',
-			'appealLetter'      => 'required|max:600',
+			'appealLetter'      => 'required|max:700',
 		); //validation rules
 
 		
@@ -60,7 +61,7 @@ class Appeal_Controller extends Base_Controller {
 
 		if ($validation->fails())
     	{
-        	return Redirect::to('appeal/new')->with_errors($validation)->with_input();
+        	return Redirect::to('appeal/new')->with_errors($validation);
     	}
 
     	//hashing the name of the file uploaded for security sake
@@ -78,6 +79,9 @@ class Appeal_Controller extends Base_Controller {
     	Input::upload('appealLetter', path('public').'uploads/', $filename);
 
 
+    	//format the fine amount in case someone screws it up
+    	$fineamt = number_format(Input::get('fineAmt'), 2, '.', '');
+
     	//inserts the form data into the database assuming we pass validation
 		Appeal::create(array(
 			'name'              => Input::get('name'),
@@ -86,9 +90,10 @@ class Appeal_Controller extends Base_Controller {
 			'assignedLot'       => Input::get('lot'),
 			'MSC'               => Input::get('msc'),
 			'ticketID'          => Input::get('ticket'),
-			'licensePlate'      => Input::get('licensePlate'),
+			'fineAmt'			=> $fineamt,
+			'licensePlate'      => Str::upper(Input::get('licensePlate')),
 			'licensePlateState' => Input::get('licensePlateState'),
-			'dateIssued'        => Input::get('dateIssued'),
+			'dateIssued'        => date('Y-m-d', strtotime(Input::get('dateIssued'))),
 			'violations'        => Input::get('violations'),
 			'areaOfViolation'   => Input::get('areaOfViolation'),
 			'letterlocation'	=> URL::to('uploads/'.$filename),
@@ -128,10 +133,15 @@ class Appeal_Controller extends Base_Controller {
 
 
 		if(Session::get('cwid') == $appeals->cwid){
-			// echo "You have access to this ticket! Hooray!<br>";
-			// echo "The ticket id of this ticket is ".$appeals->ticketid;
 
-			$denyReasonsArray = array('none' => '', 'incomplete' => 'Incomplete/Illegible', 'past' => 'Past Due', 'nobasis' => 'No Basis for Appeal', 'insufficient' => 'Insufficient Evidence', 'other' => 'Other (specify)');
+			$denyReasonsArray = array(
+				'none'         => '', 
+				'incomplete'   => 'Incomplete/Illegible', 
+				'past'         => 'Past Due', 
+				'nobasis'      => 'No Basis for Appeal', 
+				'insufficient' => 'Insufficient Evidence', 
+				'other'        => 'Other (specify)'
+			);
 
 			if(!empty($rulings)){
 				$view = View::make('appeal.review')
