@@ -3,7 +3,16 @@
 @section('content')
 
 	<h1>Welcome to the Online Parking Ticket Appeal System!</h1>
-	<p>If you would like to submit a new parking ticket appeal, please go here: <a href="{{ URL::to_action('appeal@new') }}">New Appeal</a> </p>
+
+	<p class="homebtns">
+		<a class="homepageButton" href="{{ URL::to_action('appeal@new') }}">
+			New Appeal
+		</a>
+		&nbsp;&nbsp;
+		<a class="homepageButton" href="{{ URL::to_action('appeal@myappeals') }}">
+			My Appeals
+		</a>
+	</p>
 
 	<p><strong>Note:</strong> All parking appeals can take up to fourteen (14) calendar days before a decision is made.</p>
 

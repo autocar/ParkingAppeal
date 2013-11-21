@@ -7,7 +7,7 @@
 		Reviewing Ticket {{ $appeals->ticketid }}
 	</h1>
 
-	<p>Please print this page for your records.</p>
+	<p>Decisions can take up to 2 weeks. Please note that all Justice Board decisions are final and cannot be appealed further.</p>
 
 	<table id="resultsTable">
 		<tr>
@@ -16,11 +16,15 @@
 		</tr>
 		<tr>
 			<th>Name</th> 
-			<td>{{ $appeals->name }} {{ $appeals->lastname }}</td>
+			<td>{{ e($appeals->name) }} {{ e($appeals->lastname) }}</td>
 		</tr>
 		<tr>
 			<th>License Plate</th> 
-			<td>{{ $appeals->licenseplate }}</td>
+			<td>{{ e($appeals->licenseplate) }}</td>
+		</tr>
+		<tr>
+			<th>Fine Amount</th> 
+			<td>{{ e($appeals->fineamt) }}</td>
 		</tr>
 		<tr>
 			<th>Violations</th> 
@@ -29,6 +33,14 @@
 		<tr>
 			<th>Permit Number</th> 
 			<td>{{ $appeals->permitnumber }}</td>
+		</tr>
+		<tr>
+			<th>Appeal Letter</th>
+			<td>{{HTML::link($appeals->letterlocation, 'View Letter')}} </td>
+		</tr>
+		<tr>
+			<th>Submitted on</th>
+			<td>{{ $appeals->created_at}}</td>
 		</tr>
 		<tr>
 			<th>Appeal Status</th>

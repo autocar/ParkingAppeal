@@ -41,7 +41,7 @@ Route::get('/', function()
 {
 	//return View::make('home.index');
 
-	include_once('CAS.php');
+	include_once('PEAR/CAS.php');
 
 
 	error_reporting(E_ALL & ~E_NOTICE);

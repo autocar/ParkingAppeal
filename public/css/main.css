@@ -1,6 +1,4 @@
 body {
-	background:url("../img/bg.png");
-	background-repeat:repeat;
 	background:#fbfdf6;
 	font-family:"Myriad Pro", Myriad, Helvetica, Arial, sans-serif;
 	font-size:100%;
@@ -62,7 +60,7 @@ article {
 	margin: 0px;
 	left: 0px;
 	padding: 10px;
-	background: #FFFFF0;
+	background: #fff;
 	color: #000000;
 	border-bottom: 1px solid #cccccc;
 	border-right: 1px solid #cccccc;
@@ -253,10 +251,10 @@ select{
 
 
 #submit { 
-	border: 1px solid #B7D6DF; 
+	border: 1px solid #AE1B1C; 
 	border-radius: 2px 2px 2px 2px; 
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
-	color: #437182; 
+	color: #6C1E1C; 
 	cursor: pointer; 
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; 
 	font-size: 14px;
@@ -267,7 +265,7 @@ select{
 	width: auto; 
 }
 #submit:hover { 
-	border: 1px solid #9FBAC0; 
+	border: 1px solid #6c1e1c; 
 	cursor: pointer; 
 }
 
@@ -296,3 +294,44 @@ span.notice{
 }
 
 /* end font styling */
+
+/* pagination style */
+.pagination ul li{
+	padding:3px;
+	display: inline;
+}
+
+.disabled{
+	text-decoration: none;
+	border-bottom: none;
+
+}
+
+.pagination ul li.active{
+	border-bottom: none;
+	font-weight: bold;
+}
+
+p.homebtns{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+a.homepageButton {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  text-shadow: 1px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #AE1B1C;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+a.homepageButton:hover {
+  background: #881D1C;
+  text-decoration: none;
+}
